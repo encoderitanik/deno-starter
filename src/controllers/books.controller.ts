@@ -27,7 +27,7 @@ type Respond = (body: ResponseBody) => void
 type Handler = <R extends string>(request: Request, respond: Respond, ctx: RouterContext<R>) => void
 
 const control = <R extends string>(handler: Handler) => (ctx: RouterContext<R>) => {
-  handler(ctx.request, res => {
+  return handler(ctx.request, res => {
     ctx.response.status = res.status || Status.OK;
     ctx.response.body = {
       data: res.data,
@@ -38,19 +38,23 @@ const control = <R extends string>(handler: Handler) => (ctx: RouterContext<R>) 
   }, ctx)
 }
 
-export const createBook = control<'/'>(async (req, respond) => {
+const parseBody = async (request: Request) => {
+  const body = request.body()
 
-  const body = await req.body({ type: 'json' })
+  if (body.type === 'json') return await body.value
+  if (body.type === 'form-data') return (await body.value.read()).fields
 
-  console.log(body.type)
-  body.value
-    .then(v => console.log(v))
-    .catch(e => {
-      console.log(e)
-    })
+  return body
+}
+
+export const createBook = control<'/'>(async (request, respond) => {
+
+  // const body = await req.body()
+
+  const body = await parseBody(request)
 
   return respond({
-    data: 'asdasd'
+    data: body
   })
 })
 
