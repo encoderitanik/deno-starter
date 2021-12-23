@@ -48,14 +48,13 @@ const parseBody = async (request: Request) => {
 }
 
 export const createBook = control<'/'>(async (request, respond) => {
+  const book = await parseBody(request)
+  const id = crypto.randomUUID()
 
-  // const body = await req.body()
+  const newBook = { id, ...book }
+  books.set(id, newBook)
 
-  const body = await parseBody(request)
-
-  return respond({
-    data: body
-  })
+  return respond({ data: newBook })
 })
 
 export const getBook = (ctx: RouterContext<'/:id'>) => {
