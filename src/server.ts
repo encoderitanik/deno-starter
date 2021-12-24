@@ -1,5 +1,6 @@
 import { Application } from "./deps.ts"
 import { apiRouter } from './router.ts'
+import './database.ts'
 
 const app = new Application()
 
@@ -21,6 +22,8 @@ app.use(async (ctx, next) => {
 app.addEventListener("listen", ({ hostname, port, secure }) => {
   const host = !hostname || hostname === '0.0.0.0' ? 'localhost' : hostname
   console.log(`Listening on: ${secure ? "https://" : "http://"}${host}:${port}`)
+
+  // connectDatabase()
 })
 
 app.addEventListener("error", (evt) => {

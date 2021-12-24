@@ -24,7 +24,7 @@ export type Response = {
 export type Controller<R extends string> = (
 	res: Response,
 	ctx: RouterContext<R>
-) => void
+) => void | Promise<void>
 
 export type BaseController = {
 	find: Controller<"/">
@@ -32,25 +32,34 @@ export type BaseController = {
 	findOne: Controller<"/:id">
 	updateOne: Controller<"/:id">
 	deleteOne: Controller<"/:id">
+	[k: string]: unknown
 }
 
-export const createRouterMiddleware = <R extends string>(controller: Controller<R>) => (ctx: RouterContext<R>) => {
+export const createRouterMiddleware = <R extends string>(controller: Controller<R>) => {
+	return async (ctx: RouterContext<R>) => {
 
-	let STATUS: Status
-	const res: Response = {
-		status: (status: Status) => {
-			STATUS = status
-			return res
-		},
-		error: (res: ErrorResponse) => {
-			ctx.response.status = res.status || STATUS || Status.InternalServerError
-			ctx.response.body = res
-		},
-		success: (res: SuccessResponse) => {
-			ctx.response.status = res.status || STATUS || Status.OK
-			ctx.response.body = res
+		let STATUS: Status
+		const res: Response = {
+			status: (status: Status) => {
+				STATUS = status
+				return res
+			},
+			error: (res: ErrorResponse) => {
+				ctx.response.status = res.status || STATUS || Status.InternalServerError
+				ctx.response.body = res
+			},
+			success: (res: SuccessResponse) => {
+				ctx.response.status = res.status || STATUS || Status.OK
+				ctx.response.body = res
+			}
+		}
+
+		try {
+			await controller(res, ctx)
+		}
+		catch (error) {
+			ctx.response.status = Status.InternalServerError
+			ctx.response.body = error.message
 		}
 	}
-
-	return controller(res, ctx)
 }
