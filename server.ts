@@ -38,10 +38,15 @@ app.use(apiRouter.allowedMethods())
 
 // Send static content
 app.use(async (context) => {
-  await context.send({
-    root: `${Deno.cwd()}/public`,
-    index: "index.html",
-  });
+  const sendStatic = (path?: string | undefined) => {
+    return context.send({
+      path,
+      index: "index.html",
+      root: `${Deno.cwd()}/public`,
+    })
+  }
+  try { await sendStatic() }
+  catch { await sendStatic('/') }
 });
 
 await app.listen({ port: 4000 })
