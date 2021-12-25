@@ -1,4 +1,4 @@
-import { Application } from "./deps.ts"
+import { Application, Status } from "./deps.ts"
 import { apiRouter } from './router.ts'
 import './database.ts'
 
@@ -36,5 +36,13 @@ app.addEventListener("error", (evt) => {
 
 app.use(apiRouter.routes())
 app.use(apiRouter.allowedMethods())
+
+// Send static content
+app.use(async (context) => {
+  await context.send({
+    root: `${Deno.cwd()}/public`,
+    index: "index.html",
+  });
+});
 
 await app.listen({ port: 4000 })
