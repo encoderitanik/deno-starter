@@ -1,6 +1,6 @@
 import { Router } from "./deps.ts"
-import { booksRouter } from './router/BooksRouter.ts'
 import { usersRouter } from './router/UsersRouter.ts'
+import { todosRouter } from './router/TodosRouter.ts'
 
 const apiRouter = new Router({ prefix: '/api/v1' })
 
@@ -10,10 +10,10 @@ apiRouter.use(
   usersRouter.allowedMethods()
 )
 
-// Books router
+// Todos router
 apiRouter.use(
-  booksRouter.routes(),
-  booksRouter.allowedMethods()
+  todosRouter.routes(),
+  todosRouter.allowedMethods()
 )
 
 export { apiRouter }

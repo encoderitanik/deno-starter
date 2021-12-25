@@ -35,6 +35,11 @@ export type BaseController = {
 	[k: string]: unknown
 }
 
+export type CursorResponse = {
+	affectedRows: number
+	lastInsertId: number
+}
+
 export const createRouterMiddleware = <R extends string>(controller: Controller<R>) => {
 	return async (ctx: RouterContext<R>) => {
 

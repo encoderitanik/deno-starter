@@ -2,6 +2,8 @@ import { Application } from "./deps.ts"
 import { apiRouter } from './router.ts'
 import './database.ts'
 
+import mysql from './database/mysql.ts'
+
 const app = new Application()
 
 // Logger
@@ -24,6 +26,8 @@ app.addEventListener("listen", ({ hostname, port, secure }) => {
   console.log(`Listening on: ${secure ? "https://" : "http://"}${host}:${port}`)
 
   // connectDatabase()
+
+  mysql.connect()
 })
 
 app.addEventListener("error", (evt) => {

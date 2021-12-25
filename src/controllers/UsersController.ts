@@ -27,7 +27,7 @@ export const usersController: UserController = {
     return res.success({ user })
   },
   async save(res, ctx) {
-    const body = await parseBody(ctx.request)
+    const body = await parseBody(ctx.request) as any
 
     const userId = await Users.insertOne(body)
     const user = await Users.findOne({ _id: userId }, { noCursorTimeout: false })

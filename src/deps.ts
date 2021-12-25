@@ -14,8 +14,12 @@ export {
 	Model,
 	Database,
 	DataTypes,
-	MongoDBConnector
+	MongoDBConnector,
+	MySQLConnector
 } from 'https://deno.land/x/denodb@v1.0.40/mod.ts'
+export type {
+	ModelFields
+} from 'https://deno.land/x/denodb@v1.0.40/lib/model.ts'
 
 // MONGO
 export {

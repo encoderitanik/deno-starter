@@ -1,6 +1,6 @@
 import { Request } from "./deps.ts"
 
-export const parseBody = async (request: Request) => {
+export const parseBody = async (request: Request): Promise<{ [key: string]: any }> => {
 	const body = request.body()
 
 	if (body.type === 'json') return await body.value
