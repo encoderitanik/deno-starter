@@ -4,5 +4,6 @@
   "deno.unstable": true,
   "deno.suggest.imports.hosts": {
     "https://deno.land": true
-  }
+  },
+  "compile-hero.disable-compile-files-on-did-save-code": false
 }

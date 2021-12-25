@@ -1,4 +1,4 @@
-import { Application, Status } from "./deps.ts"
+import { Application } from "./deps.ts"
 import { apiRouter } from './router.ts'
 import './database.ts'
 
@@ -17,8 +17,7 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
   const start = Date.now()
   await next()
-  const ms = Date.now() - start
-  ctx.response.headers.set("X-Response-Time", `${ms}ms`)
+  ctx.response.headers.set("X-Response-Time", `${Date.now() - start}ms`)
 })
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {
