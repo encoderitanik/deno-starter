@@ -1,6 +1,6 @@
 import { Application } from "./deps.ts"
 import { apiRouter } from './router.ts'
-import './database.ts'
+import './database/mongo.ts'
 
 import mysql from './database/mysql.ts'
 
@@ -10,14 +10,17 @@ const app = new Application()
 app.use(async (ctx, next) => {
   await next()
   const rt = ctx.response.headers.get("X-Response-Time")
-  console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`)
+  console.log(`${ctx.request.method} - [${rt}] - ${ctx.request.url}`)
 })
 
 // Timing
 app.use(async (ctx, next) => {
   const start = Date.now()
   await next()
-  ctx.response.headers.set("X-Response-Time", `${Date.now() - start}ms`)
+  ctx.response.headers.set(
+    "X-Response-Time",
+    `${('000' + (Date.now() - start)).substr(-3)}ms`
+  )
 })
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {

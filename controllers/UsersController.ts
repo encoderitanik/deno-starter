@@ -1,6 +1,6 @@
 import { BaseController, Controller } from "./BaseController.ts"
 import { parseBody } from "../helpers.ts"
-import { Users } from "../database.ts"
+import { Users } from "../collections/UsersCollection.ts"
 import { Bson, Status } from "../deps.ts"
 
 type UserController = BaseController & {
