@@ -1,2 +1,2 @@
-deno run --allow-net --allow-read --watch server.ts
-deno run --allow-net --allow-read --importmap=import_map.json --watch --unstable server.ts
+deno run --allow-net --allow-read --allow-env --watch server.ts
+deno run --allow-net --allow-read --allow-env --importmap=import_map.json --watch --unstable server.ts
