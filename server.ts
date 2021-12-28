@@ -1,10 +1,13 @@
-import { Application } from "./deps.ts"
+import { Application, oakCors } from "./deps.ts"
 import { apiRouter } from './router.ts'
 import './database/mongo.ts'
 
 import mysql from './database/mysql.ts'
 
 const app = new Application()
+
+// Cors
+app.use(oakCors({ origin: "*" }))
 
 // Logger
 app.use(async (ctx, next) => {
@@ -52,4 +55,6 @@ app.use(async (context) => {
   catch { await sendStatic('/') }
 });
 
-await app.listen({ port: 4000 })
+await app.listen({
+  port: +(Deno.env.get('PORT') || 4000)
+})

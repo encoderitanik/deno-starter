@@ -32,3 +32,13 @@ export class Todo extends Model {
 		isCompleted: false
 	}
 }
+
+Todo.on('created', (todo: Todo) => {
+	console.log('Created:', todo, todo.id)
+})
+Todo.on('updated', (todo: Todo) => {
+	console.log('Updated:', todo, todo.id)
+})
+Todo.on('deleted', (todo: Todo) => {
+	console.log('Deleted:', todo.id)
+})

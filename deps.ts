@@ -6,7 +6,7 @@ export {
 	Router,
 	Status,
 	Request,
-	Application,
+	Application
 } from "https://deno.land/x/oak@v10.1.0/mod.ts"
 export type {
 	RouterContext
@@ -30,3 +30,8 @@ export {
 	MongoClient,
 	Database as MongoDatabase
 } from 'https://deno.land/x/mongo@v0.29.0/mod.ts'
+
+// CORS
+export {
+	oakCors
+} from 'https://deno.land/x/cors@v1.2.2/oakCors.ts'
