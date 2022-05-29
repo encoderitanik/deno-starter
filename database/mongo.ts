@@ -12,10 +12,9 @@ try {
 	await client.connect(MONGO_CONNECT_URI)
 	mongo = client.database(Deno.env.get('MONGO_DATABASE'))
 	console.log('MONGO::CONNECTED')
-}
-catch (error) {
+} catch (error) {
 	console.log('MONGO::', error.message)
-	throw new Error('MONGO::' + error.message);
+	throw new Error('MONGO::' + error.message)
 }
 
 export { mongo }

@@ -1,7 +1,7 @@
 import { Model, DataTypes, ModelFields } from '../deps.ts'
 
 export class Todo extends Model {
-	static timestamps = true;
+	static timestamps = true
 	static table = 'todos'
 	static fields: ModelFields = {
 		id: {
@@ -12,23 +12,23 @@ export class Todo extends Model {
 		},
 		title: {
 			allowNull: false,
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
 		},
 		description: {
 			allowNull: true,
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
 		},
 		isCompleted: {
 			allowNull: false,
-			type: DataTypes.BOOLEAN
+			type: DataTypes.BOOLEAN,
 		},
 		deadline: {
 			allowNull: true,
-			type: DataTypes.TIMESTAMP
-		}
-	};
+			type: DataTypes.TIMESTAMP,
+		},
+	}
 
 	static defaults = {
-		isCompleted: false
+		isCompleted: false,
 	}
 }

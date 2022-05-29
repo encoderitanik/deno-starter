@@ -1,20 +1,21 @@
 {
-	"$schema": "https://deno.land/x/denon/schema.json",
-	"env": {
-		"TOKEN": "abc"
-	},
+	"$schema": "https://deno.land/x/denon@2.5.0/schema.json",
+	"allow": [
+		"read",
+		"env",
+		"net",
+		"write"
+	],
 	"scripts": {
 		"start": {
-			"cmd": "deno run server.ts",
-			"allow": [
-				"env",
-				"net",
-				"write",
-				"read"
-			],
+			"cmd": "deno run --unstable --import-map=import_map.json server.ts",
+			"unstable": false,
+			"desc": "run server",
 			"env": {
-				"PORT": "8080"
-			}
+				"ENV": "development"
+			},
+			"watch": true,
+			"tsconfig": "tsconfig.json"
 		}
 	}
 }

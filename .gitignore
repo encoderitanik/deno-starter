@@ -1,2 +1,9 @@
 node_modules
 dist
+.deno_plugins
+.vscode
+.idea
+.env.development
+.env.production
+.env.test
+cov

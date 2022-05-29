@@ -1,5 +1,8 @@
 {
 	"imports": {
-		"oak": "https://deno.land/x/oak@v10.1.0/mod.ts"
+		"oak": "https://deno.land/x/oak@v10.1.0/mod.ts",
+		"@/": "./",
+		"/": "./",
+		"./": "./"
 	}
 }
